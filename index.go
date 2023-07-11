@@ -122,6 +122,19 @@ func main() {
 	var integerArray3 [5]int = [5]int{1, 2, 3, 4, 5}
 	fmt.Println("are the two arrays equal?: " + strconv.FormatBool(integerArray3 == integerArray))
 
+	// strings are arrays of characters
+	// this is a normal string
+	var exampleString string = "random string!"
+	fmt.Println(exampleString)
+	//this can also be written as an array of characters like this:
+	var charArray []byte = []byte{'R', 'a', 'n', 'd', 'o', 'm', ' ', 's', 't', 'r', 'i', 'n', 'g', '!'} // byte is basically character, no need to do too much a deep dive
+	var stringFromACharArray string = string(charArray[:])
+	fmt.Println(stringFromACharArray)
+
+	someInteger := 5
+	// you can also get the type of a variable as a string in go like this:
+	fmt.Println("type of someRandomInteger is " + reflect.TypeOf(someInteger).String())
+
 	// you can typecast many different types into other tings like this by just putting type(variable)
 	// for example
 	var someRandomInteger int = 5
@@ -158,28 +171,13 @@ func main() {
 		third: -1 means to use the smallest number of digits necessary to accurately represent the float
 		fourth: 64 indicates the precision of the float, specifically for float64
 
-		weirdly enough, this doesn't print out 13.123456789 (which is what it is equal to mathematically)
+		weirdly enough, this doesn't print out 13.123456789 (which is what it is equal to because that's what I wrote it to be equal to)
 		but rather it prints out 13.123456788999999
-		be careful with these weirdness when working with floats always use ranges, as in, if a float is approximately equal to something,
-		never exactly.
+		be careful with these weirdness when working with floats always use ranges, as in, if a float is approximately equal to something or not, never exactly, this brings too many bugs.
 		this is for the simple reason that they're not too predictable at times (this isn't a go thing, this is a thing for every programming language that I know of)
 	*/
 
-	// go has multiple different data types
-
-	// strings are arrays of characters
-	// this is a normal string
-	var exampleString string = "random string!"
-	fmt.Println(exampleString)
-	//this can also be written as an array of characters like this:
-	var charArray []byte = []byte{'R', 'a', 'n', 'd', 'o', 'm', ' ', 's', 't', 'r', 'i', 'n', 'g', '!'} // byte is basically character, no need to do too much a deep dive
-	var stringFromACharArray string = string(charArray[:])
-	fmt.Println(stringFromACharArray)
-
-	// you can also get the type of a variable as a string in go like this:
-	fmt.Println("type of someRandomInteger is " + reflect.TypeOf(someRandomInteger).String())
-
-	// side note by me: rust compiler is better than Go's tbh, rust is just better
+	// side note: rust compiler is better than Go's tbh, rust is just better
 
 	// in go you can skip a line using \n in a string
 	// for example
