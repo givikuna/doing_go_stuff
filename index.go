@@ -90,7 +90,7 @@ func main() {
 
 	// go is great at inferring stuff
 	// meaning if you need an array to stay a fixed length, but are to lazy to assign a length or count it yourself do it like this
-	someRandomIntegerArray1 := [...]int{1, 2, 3, 4, 5} // this array will never be more than 5, and the length stays fixed, unlike an array with a tyoe []int
+	someRandomIntegerArray1 := [...]int{1, 2, 3, 4, 5} // this array will never be more than 5, and the length stays fixed, unlike an array with a type []int
 	fmt.Println(someRandomIntegerArray1)
 
 	// you can get the length of an array like this
@@ -231,7 +231,7 @@ func main() {
 	mySortingFunction(myArrayToSort) // sorts myArrayToSort in ascending order
 	fmt.Println(myArrayToSort)
 	// notice how I didn't have to assign the sorted array to my array?
-	// as I passed the array into the sort function as an argument, the changes happening to the paramter arr []int also applied to myArrayToSort []int
+	// as I passed the array into the sort function as an argument, the changes happening to the parameter arr []int also applied to myArrayToSort []int
 	// but this might not always be preferred behavior
 	// for this you can use the copy function
 	myArrayToSort2 := []int{543, 52, 15, 54, 45, 13}
