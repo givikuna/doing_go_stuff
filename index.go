@@ -2,9 +2,17 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
 	"reflect"
 	"strconv"
 )
+
+type person struct {
+	name    string
+	age     int
+	country string
+	married bool
+}
 
 func main() {
 	var helloWorld string = "Hello World!"
@@ -255,10 +263,55 @@ func main() {
 
 	// scroll down to see a function called runALambda, it simply takes in a lambda as an argument and runs it
 	runALambda(func() {
-		fmt.Println("\nthis is printed from a lambda!!")
+		fmt.Println("\nthis is printed from a lambda!!\n\n")
 	})
 
 	// these can come in handy at different situations
+
+	// the changing of the value of the array only applies to arrays (and a few others) but
+	// in go, if you want your variables to change as you send them to a function there are two things you can do
+	// you can either make a function that'll change the variable and then return the changed value and then assign it to the original variable
+	// or use pointers
+	// pointers are a lot simpler than they appear
+	// a pointer is a variable that holds the memory address of another variable, these're used to indirectly access and modify the value of a referenced variable
+	// in other words, a pointer points at the location of a variable in memory
+	// lets take an example
+	i := 7
+	increment(i)   // this is a function at the bottom of the file, it just adds 1 to i
+	fmt.Println(i) // still 7
+	/*
+		increment(i) doesn't actually change i at all
+		the increment function looks like this:
+		func increment(i int) {
+			i = i + 1
+		}
+
+		we could change the increment function to return the changed value instead of nothing and then assign it to i like this:
+			i = increment(i)
+
+			func increment(i int) int {
+				i = i + 1
+				return i
+			}
+		but this can also be done with pointers
+
+		let's make a function like this (scroll down to see the actual function):
+			func increment2(i *int) {
+				*i++
+			}
+		and we can do this:
+	*/
+	increment2(&i)
+	fmt.Println(i) // now this is 8
+
+	// the use of & is to get the memory address of i and send it to the function
+	// the use of * in the type is to clarify the pointer type (yes pointers can have their own types)
+	// we could have written this like this:
+	pointer := &i
+	increment2(pointer)
+	fmt.Println(i) // now this is 9
+
+	fmt.Print("\n\n\n")
 
 	// constants in Go are similar to other languages
 	const ZERO = 0
@@ -269,6 +322,49 @@ func main() {
 		in other words, you can not create a function that, depending on the values of other variables, will dynamically determine the value of the constant
 		"this is not a bug, this is a feature" - some Go dev at Google probably
 	*/
+
+	/*
+		in go you can make your own types
+		for example:
+			type person struct {
+				name string
+				age int
+				country string
+				married bool
+			}
+			/// this is actually a piece of code if you scroll up
+	*/
+	jake := person{
+		name:    "Jake Doe",
+		age:     69,
+		country: "USA",
+		married: true,
+	}
+	// in the example above the type is inferred
+	// we can also hard code the type
+	var john person = person{
+		name:    "John Doe",
+		age:     69,
+		country: "USA",
+		married: true,
+	}
+	// how do we compare if jake and john are the same person?
+	// we can write a function for this
+	// and to avoid going outside of the main function I can make a variable and simply assign a lambda to it
+	isSamePerson := func(p1 person, p2 person) bool {
+		return p1.name == p2.name && p1.age == p2.age && p1.country == p2.country && p1.married == p2.married
+	}
+
+	fmt.Println(isSamePerson(jake, john)) // false, not the same person (their names are different)
+
+	// in go you can also run shell commands
+
+	cmd := exec.Command("ls", "-l") // if you're on an unix based system this'll simply print all the files and directories within the directory you are in
+	output, err := cmd.Output()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(output)) // prints out the output
 }
 
 // you can also make functions in go
@@ -296,4 +392,12 @@ func mySortingFunction(arr []int) []int { // takes in an integer array, returns 
 
 func runALambda(lambda func()) {
 	lambda()
+}
+
+func increment(i int) {
+	i = i + 1
+}
+
+func increment2(i *int) {
+	*i++
 }
