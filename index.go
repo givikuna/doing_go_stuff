@@ -67,7 +67,7 @@ func main() {
 	// and there is, make this into a function, that's all I know
 
 	/*
-		beforehand we crated two arrays:
+		we already have two arrays:
 		var integerArray [5]int = [5]int{1, 2, 3, 4, 5} // notice how the length here is 5? and how that had to be specified?
 		var integerArray2 []int = []int{1, 2, 3, 4, 5} // now it can be as long as you want and it'll work just fine
 
